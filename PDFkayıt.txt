@@ -1,0 +1,20 @@
+Sub PDFKayıtetme()
+    Dim klasor As String
+
+            With Application.FileDialog(msoFileDialogFolderPicker)
+                        .Title = "Lütfen Kayıt Klasörünü Seçiniz"
+                        If .Show = -1 Then klasor = .SelectedItems(1)
+                End With
+
+    If klasor = "" Then Exit Sub
+
+            Dim sh As Worksheet
+
+    For Each sh In ActiveWorkbook.Worksheets
+            sh.ExportAsFixedFormat xlTypePDF, klasor & Application.PathSeparator & sh.Name & " " _
+            & Mid(ActiveWorkbook.Name, 1, InStr(ActiveWorkbook.Name, ".") - 1) _
+            & ".pdf"
+    Next
+
+        MsgBox "PDF Kayıt İşlemi Tamamlandı"
+End Sub
